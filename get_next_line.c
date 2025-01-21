@@ -6,7 +6,7 @@
 /*   By: lucdo-na <lucdo-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:22:10 by lucdo-na          #+#    #+#             */
-/*   Updated: 2025/01/20 20:43:00 by lucdo-na         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:32:22 by lucdo-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static char *ft_fill_buff(int fd, char *rest, char *buf)
         i = read(fd, buf, BUFFER_SIZE);
         if (i == -1)
         {
-            free(i);
             return(NULL);
         }
         else if(i == 0)
@@ -52,9 +51,8 @@ static char *ft_fill_buff(int fd, char *rest, char *buf)
         if(!rest)
             rest = ft_strdup("");
         tmp = rest;
-        rest = ft_strjoin(tmp, buffer);
+        rest = ft_strjoin(tmp, buf);
         free(tmp);
-        tmp = NULL;
         if (ft_strchr(buf, '\n'))
             break;
     }
@@ -70,7 +68,6 @@ char    *get_next_line(int fd)
     if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
     {
         free(rest);
-        free(buf);
         rest = NULL;
         buf = NULL;
         return (NULL);
@@ -85,4 +82,20 @@ char    *get_next_line(int fd)
         return (NULL);
     rest = ft_set_str(str);
     return (str);
+}
+
+int main(void)
+{
+    int     fd;
+    char    *line;
+    
+    fd = open("txt", O_RDONLY);
+    line = get_next_line(fd);
+    while (line)
+    {
+        printf("line : %s", line);
+        free(line);
+        line = get_next_line(fd);
+    }
+    return (0);
 }

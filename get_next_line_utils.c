@@ -6,7 +6,7 @@
 /*   By: lucdo-na <lucdo-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 21:07:25 by lucdo-na          #+#    #+#             */
-/*   Updated: 2025/01/20 20:43:06 by lucdo-na         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:28:15 by lucdo-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ char    *ft_strchr(const char *s, int c)
     i = 0;
     while (s[i] != '\0' && s[i] != c)
     {
+        i++;
         if (s[i] == (char)c)
             return ((char *)s  + i);
-        return (NULL);
     }
+    return (NULL);
 }
 
 
@@ -50,7 +51,7 @@ char    *ft_strdup(const char *s1)
     i = 0;
     while (i < len)
     {
-        cpy[i] = s[i];
+        cpy[i] = s1[i];
         i++;
     }
     cpy[i] = 0;
@@ -94,7 +95,7 @@ char    *ft_strjoin(char const *s1, char const *s2)
     j = 0;
     if (!s1 || !s2)
         return (NULL);
-    result = (char *)mallc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+    result = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
     if (result == NULL)
         return (NULL);
     while (s1[i])
@@ -102,7 +103,7 @@ char    *ft_strjoin(char const *s1, char const *s2)
         result[i] = s1[i];
         i++;
     }
-    while(s[j])
+    while(s2[j])
     {
         result[i] = s2[j];
         i++;
